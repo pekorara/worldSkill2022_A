@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <style>
+
+    *{
+      margin: 0;
+      padding: 0;
+    }
+
+    body{
+      transition:all 1s ease;
+    }
+
+    html{
+      overflow: hidden;
+    }
+
+    img{
+      position: absolute;
+      left: 0;
+      top: 0;
+      object-fit: cover;
+      max-width: 100%;
+    }
+
+    .day{
+      background-color: #8a7547;
+      color: black;
+      padding: .5rem 1rem;
+      position: fixed;
+      top: 97%;
+      transform: translate(0,-50%);
+      border: none;
+      left: 0;
+      transition: all .2s ease;
+    }
+
+    .day:hover{
+      background-color: #171526;
+      color: white;
+    }
+
+    .night{
+      transform: translate(0,-100%);
+      background-color: #171526;
+      color: white;
+      padding: .5rem 1rem;
+      transition: all .2s ease;
+      position: fixed;
+      top: 98.4%;
+      border: none;
+      left: 97%;
+    }
+
+    .night:hover{
+      background-color: #8a7547;
+      color: black;
+    }
+
+    .cloud1{
+      animation: c1 50s linear infinite;
+    }
+
+    .cloud2{
+      animation: c2 50s linear infinite;
+    }
+
+    @keyframes c1 {
+      0%{
+        left: 80%;top: 15%;
+      }
+
+      50%{
+        left: 5%;top: 15%;
+      }
+
+      100%{
+        left: 80%;top: 15%;
+      }
+    }
+
+    @keyframes c2 {
+      0%{
+        left: 90%;top: 5%;
+      }
+
+      50%{
+        left: 5%;top: 5%;
+      }
+
+      100%{
+        left: 90%;top: 5%;
+      }
+    }
+
+    .light{
+      left: 15%;
+      top: 70%;
+      width: 300px;
+      transform: translate(-50%,-50%);
+    }
+
+    .dark{
+      left: 50%;
+      top: 10%;
+      width: 300px;
+      transform: translate(-50%,-50%);
+    }
+    
+    @keyframes light-up {
+      from{
+        left: 15%;
+        top: 70%;
+      }
+
+      to{
+        left: 50%;
+        top: 10%;
+      }
+    }
+
+    @keyframes dark-up {
+      from{
+        left: 85%;
+        top: 70%;
+      }
+
+      to{
+        left: 50%;
+        top: 10%;
+      }
+    }
+
+    @keyframes light-down {
+      from{
+        left: 50%;
+        top: 10%;
+      }
+
+      to{
+        left: 15%;
+        top: 70%;
+      }
+    }
+
+    @keyframes dark-down {
+      from{
+        left: 50%;
+        top: 10%;
+      }
+      to{
+        left: 85%;
+        top: 70%;
+      }
+    }
+
+  </style>
+</head>
+<body style="background-color: #070818">
+<img src="images/1.png" class="back" style="z-index: 10;" alt="">
+
+<img src="images/4.png" class="cloud1" style="height: 100px" alt="">
+<img src="images/4.png" class="cloud2" style="height: 50px" alt="">
+
+<img src="images/2.png" class="light" alt="">
+<img src="images/3.png" class="dark" alt="">
+
+<button type="button" style="z-index: 11;" onclick="day()" class="day">Day</button>
+<button type="button" style="z-index: 11;" onclick="night()" class="night">Night</button>
+
+<script>
+  const body = document.querySelector('body');
+  const light = document.querySelector('.light');
+  const dark = document.querySelector('.dark');
+  const back = document.querySelector('.back')
+  let type = 'night';
+  back.style.filter = 'hue-rotate(12deg) contrast(2) brightness(1)'
+  function day(){
+    if (type === 'light') return;
+    type = 'light';
+    body.style.background = '#fdd87d'
+    back.style.filter = 'hue-rotate(203deg) contrast(2) brightness(1)'
+    light.style.animation = 'light-up 1s ease forwards';
+    dark.style.animation = 'dark-down 1s ease forwards';
+  }
+
+  function night(){
+    if (type === 'night') return;
+    type = 'night';
+    body.style.background = '#070818'
+    back.style.filter = 'hue-rotate(12deg) contrast(2) brightness(1)'
+    light.style.animation = 'light-down 1s ease forwards';
+    dark.style.animation = 'dark-up 1s ease forwards';
+  }
+</script>
+</body>
+</html>

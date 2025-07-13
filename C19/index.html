@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+  <label for="string">roman string</label>
+  <input type="text" placeholder="please input roman string" id="string">
+  <button type="button" onclick="setString()">submit</button>
+</div>
+
+<div>
+  <label for="number">integer</label>
+  <input type="text" id="number" placeholder="please input integer">
+  <button type="button" onclick="setInteger()">submit</button>
+</div>
+
+<p>result : </p>
+
+<script>
+    function setString(){
+        const str = document.getElementById('string').value;
+        fetch(`str.php?str=${str}`).then(z => z.text()).then(z => {
+            document.querySelector('p').textContent = 'result: ' + z;
+        });
+    }
+
+    function setInteger(){
+        const num = document.getElementById('number').value;
+        fetch(`num.php?num=${num}`).then(z => z.text()).then(z => {
+            document.querySelector('p').textContent = 'result: ' + z;
+        });
+    }
+</script>
+</body>
+</html>

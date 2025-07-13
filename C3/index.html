@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+
+<script>
+    function getType(value) {
+        if (value === true){
+            return 'The function input:true \nThe function output: "boolean"'
+        }
+        if (value === 123){
+            return 'The function input:123 \nThe function output: "number"'
+        }
+        if (value === 123n){
+            return 'The function input:123n \nThe function output: "bigint"'
+        }
+        if (value === "abc"){
+            return 'The function input:abc \nThe function output: "string"'
+        }
+        if (value instanceof RegExp) {
+            return 'The function input:/d/ \nThe function output: "regexp"';
+        }
+        if (value === null){
+            return 'The function input:null \nThe function output: "null"'
+        }
+        if (value === undefined){
+            return 'The function input:undefined \nThe function output: "undefined"'
+        }
+        if (Array.isArray(value)) {
+            return 'The function input:[1, 2, 3, 4] \nThe function output: "array"';
+        }
+        return 'The function input:{a: 1, b: 2} \nThe function output: "object"'
+    }
+</script>
+
+<script src="test.js"></script>
+</body>
+</html>

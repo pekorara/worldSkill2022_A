@@ -1,0 +1,22 @@
+tables
+===============
+新增token 欄位
+password 欄位從明文改成 hash
+id 變成 PK
+
+include/functions.php
+===============
+在 dbConnect function 實現了防範依賴注入
+在 userInfo function 中傳遞 username
+
+script/login.php
+===============
+建立 log 防止使用者多次輸入同筆資料
+登入失敗有 "登入失敗的alert"
+使用 password_verify 比對使用者輸入的密碼以及資料庫的密碼
+cookie 從使用者的 username , id 改成了 token
+
+script/logout.php
+===============
+登出時把資料庫的 token 清除
+

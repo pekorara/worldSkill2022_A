@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Drawing Canvas</title>
+    <link rel="stylesheet" href="../plugin/theme.css">
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+
+        .color-btn {
+            width: 30px;
+            height: 30px;
+            border: none;
+        }
+
+        .canvas-container {
+            position: relative;
+            display: inline-block;
+            border: 1px solid #ddd;
+        }
+
+        canvas {
+            display: block;
+            cursor: crosshair;
+        }
+
+        .resize-handle {
+            position: absolute;
+            top: 100%;
+            left: 100%;
+            transform: translate(-50%,-50%);
+            width: 10px;
+            height: 10px;
+            background: #ffffff;
+            cursor: nwse-resize;
+            border: black 2px solid;
+        }
+
+    </style>
+</head>
+<body class="p-2 container">
+<div class="d-flex flex-row gap-3">
+    <button type="button" class="color-btn" style="background-color: black" onclick="selectColor('black')"></button>
+    <button type="button" class="color-btn" style="background-color: red" onclick="selectColor('red')"></button>
+    <button type="button" class="color-btn" style="background-color: yellow" onclick="selectColor('yellow')"></button>
+    <button type="button" class="color-btn" style="background-color: green" onclick="selectColor('green')"></button>
+    <button type="button" class="color-btn" style="background-color: blue" onclick="selectColor('blue')"></button>
+</div>
+<div class="my-2"></div>
+<div class="canvas-container">
+    <canvas width="400" height="300"></canvas>
+    <div class="resize-handle"></div>
+</div>
+<div class="my-2"></div>
+
+<div class="action-buttons">
+    <button type="button" onclick="saveCanvas('jpg')">Save as JPG</button>
+    <button type="button" onclick="saveCanvas('png')">Save as PNG</button>
+</div>
+
+<script>
+    const canvas = document.querySelector('canvas');
+    const ctx = canvas.getContext('2d');
+    const resizeHandle = document.querySelector('.resize-handle');
+
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    let isDrawing = false;
+
+    let imageData = null;
+
+    function selectColor(color = 'black') {
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 2;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+    }
+
+    ctx.strokeStyle = 'black';
+    ctx.lineWidth = 2;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+
+    canvas.addEventListener('mousedown', function(e) {
+        isDrawing = true;
+        ctx.beginPath();
+        ctx.moveTo(e.offsetX, e.offsetY);
+    });
+
+    canvas.addEventListener('mousemove', function(e) {
+        if (!isDrawing) return;
+        ctx.lineTo(e.offsetX, e.offsetY);
+        ctx.stroke();
+        ctx.moveTo(e.offsetX, e.offsetY);
+    });
+
+    canvas.addEventListener('mouseup', () => isDrawing = false);
+
+
+    let isResizing = false;
+    let startX, startY, startWidth, startHeight;
+
+    resizeHandle.addEventListener('mousedown', function(e) {
+        e.preventDefault();
+        isResizing = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        startWidth = canvas.width;
+        startHeight = canvas.height;
+
+        imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    });
+
+    document.addEventListener('mousemove', function(e) {
+        if (!isResizing) return;
+
+        const newWidth = Math.max(100, startWidth + (e.clientX - startX));
+        const newHeight = Math.max(100, startHeight + (e.clientY - startY));
+
+        canvas.width = newWidth;
+        canvas.height = newHeight;
+
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, newWidth, newHeight);
+        ctx.putImageData(imageData, 0, 0);
+    });
+
+    document.addEventListener('mouseup', () => isResizing = false);
+
+    function saveCanvas(format) {
+        const link = document.createElement('a');
+        if (format === 'jpg') {
+            link.download = `drawing.jpg`;
+            link.href = canvas.toDataURL('image/jpeg');
+        } else {
+            link.download = `drawing.png`;
+            link.href = canvas.toDataURL('image/png');
+        }
+        link.click();
+    }
+</script>
+</body>
+</html>

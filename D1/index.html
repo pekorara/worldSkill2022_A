@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Answer checker</title>
+    <link rel="stylesheet" href="../plugin/theme.css">
+</head>
+<body style="padding: 1rem">
+
+<table class=" table-bordered">
+    <thead>
+    <tr>
+        <th>Question</th>
+        <th>Actual Answer</th>
+        <th>Submitted Answer</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+<p></p>
+
+<script>
+    let count = 0;
+  Promise.all([
+    fetch('back.php?file=actualAnswers.csv').then(z => z.json()).then(z => z.map(c => c.replace('\r\n',''))),
+    fetch('back.php?file=submittedAnswers.csv').then(z => z.json()).then(z => z.map(c => c.replace('\r\n','')))
+  ]).then(([actual,submit]) => {
+      for(let i=0;i<actual.length;i++){
+          if (actual[i] === submit[i]) count++;
+          document.querySelector('tbody').innerHTML += `
+<tr>
+          <td>${i+1}</td>
+          <td>${actual[i]}</td>
+          <td>${submit[i]}</td>
+</tr>
+          `
+      }
+      document.querySelector('p').textContent = `Score: ${count}/${actual.length}`
+  })
+</script>
+</body>
+</html>

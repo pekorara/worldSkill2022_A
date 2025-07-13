@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <style>
+    .dot{
+      position: absolute;
+      top: -10%;
+      left: -10%;
+      width: 30px;
+      height: 30px;
+      background-color: rgba(255, 255, 255, 0.5);
+      transform: translate(-50%,-50%);
+      filter: blur(2px);
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+
+<div class="box" style="position: relative">
+  <img src="background.jpg" alt="" style="object-fit: cover;height: 500px;">
+  <div class="dot"></div>
+</div>
+
+<script>
+  const bot = document.querySelector('.dot');
+  const container = document.querySelector('.box');
+  container.addEventListener('mousemove',function (e){
+    bot.style.display = 'flex';
+    const rect = container.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width * 100;
+    const y = (e.clientY - rect.top) / rect.height * 100;
+    bot.style.left = `${x}%`;
+    bot.style.top = `${y}%`;
+  });
+  container.addEventListener('mouseleave',function (){
+    bot.style.display = 'none';
+  });
+  window.addEventListener('wheel',function (e){
+    let w = parseFloat(bot.style.width) || 30;
+    let h = parseFloat(bot.style.height) || 30;
+
+    if (e.deltaY > 0) {
+      w += 1;
+      h += 1;
+    } else {
+      w = Math.max(10, w - 1);
+      h = Math.max(10, h - 1);
+    }
+
+    bot.style.width = `${w}px`;
+    bot.style.height = `${h}px`;
+  })
+</script>
+</body>
+</html>

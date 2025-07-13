@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Infinite Scroll Example</title>
+  <style>
+    *{
+      padding: 0;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    li {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      justify-content: center;
+      border-bottom: 1px solid #ccc;
+    }
+
+    #loader {
+      text-align: center;
+      padding: 20px;
+      display: none;
+    }
+
+    p{
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+
+<ul id="container" style="height: 500px;overflow: auto"></ul>
+<div id="loader">Loading...</div>
+
+<script>
+  const container = document.getElementById('container');
+  const loader = document.getElementById('loader');
+  let page = 0;
+
+  function loadItems(page) {
+    loader.style.display = 'block';
+    fetch(`back.php?file=data.json&page=${page}`)
+            .then(z => z.json())
+            .then((z) => {
+              for (let i=0;i<z.length;i++){
+                const div = document.createElement('li');
+                const p1 = document.createElement('pre');
+                p1.textContent = `ID:${z[i].id}\nFirst Name:${z[i].first_name}\nLast Name:${z[i].last_name}\nemail:${z[i].email}\ncountry:${z[i].country}\ncity:${z[i].city}\nphone${z[i].phone}`;
+                div.appendChild(p1)
+                container.appendChild(div);
+              }
+            });
+    loader.style.display = 'none';
+  }
+
+  loadItems(page);
+
+  container.addEventListener('scroll', () => {
+    if (container.scrollTop + container.clientHeight >= container.scrollHeight - 100) {
+      page++;
+      loadItems(page);
+    }
+  });
+</script>
+
+</body>
+</html>

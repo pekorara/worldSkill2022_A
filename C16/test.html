@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../plugin/theme.css">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        .color-btn{
+            width: 40px;
+            border: none;
+            height: 40px;
+        }
+
+        .color-btn:nth-of-type(1){
+            background: black;
+        }
+        .color-btn:nth-of-type(2){
+            background: #fd0000;
+        }
+        .color-btn:nth-of-type(3){
+            background: #fdfd00;
+        }
+        .color-btn:nth-of-type(4){
+            background: #00fd00;
+        }
+        .color-btn:nth-of-type(5){
+            background: #0000fd;
+        }
+
+        .resize-btn{
+            background: white;
+            width: 30px;
+            height: 30px;
+            position: absolute;
+            top: 100%;
+            border: .5px solid black;
+            left: 100%;
+            transform: translate(-50%,-50%);
+        }
+
+    </style>
+</head>
+<body class="d-flex flex-column p-2 gap-3" style="background: #f6f6f6">
+<div class="d-flex flex-row gap-3">
+    <button type="button" class="color-btn" onclick="selectColor('black')"></button>
+    <button type="button" class="color-btn" onclick="selectColor('#fd0000')"></button>
+    <button type="button" class="color-btn" onclick="selectColor('#fdfd00')"></button>
+    <button type="button" class="color-btn" onclick="selectColor('#00fd00')"></button>
+    <button type="button" class="color-btn" onclick="selectColor('#0000fd')"></button>
+</div>
+
+<div class="position-relative me-auto">
+    <canvas width="300" height="300"></canvas>
+    <button type="button" class="resize-btn"></button>
+</div>
+
+<div class="d-flex flex-row gap-2">
+    <button type="button" onclick="save('jpg')">save to jpg</button>
+    <button type="button" onclick="save('png')">save to png</button>
+</div>
+<script>
+    const canvas = document.querySelector('canvas');
+    const ctx = canvas.getContext('2d');
+
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    ctx.strokeStyle = 'black';
+
+    function selectColor(color){
+        ctx.strokeStyle = color;
+    }
+
+    let isDraw = false;
+    canvas.addEventListener('mousedown',e => {
+        isDraw = true;
+        const rect = canvas.getBoundingClientRect();
+        ctx.beginPath();
+        ctx.moveTo(e.clientX - rect.left,e.clientY - rect.top);
+    })
+
+    canvas.addEventListener('mousemove',e =>{
+        if (!isDraw) return;
+        const rect = canvas.getBoundingClientRect();
+        ctx.lineTo(e.clientX - rect.left,e.clientY - rect.top);
+        ctx.stroke();
+        ctx.moveTo(e.clientX - rect.left,e.clientY - rect.top);
+    })
+
+    canvas.addEventListener('mouseup',e => isDraw = false);
+
+    const btn = document.querySelector('.resize-btn');
+    let x,y,width,height,image;
+    let isResize = false;
+    btn.addEventListener('mousedown',e => {
+        isResize = true;
+        x = e.clientX;
+        y = e.clientY;
+        width = canvas.width;
+        height = canvas.height;
+        image = ctx.getImageData(0,0,canvas.width,canvas.height);
+    })
+
+    document.addEventListener('mousemove',e => {
+        if (!isResize) return;
+        const disX = e.clientX - x + width;
+        const disY = e.clientY - y + height;
+        canvas.width = disX;
+        canvas.height = disY;
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+        ctx.putImageData(image,0,0);
+    })
+
+    document.addEventListener('mouseup',e => isResize = false);
+
+    function save(type){
+        const a = document.createElement('a');
+        if (type === 'jpg'){
+            a.download = 'image.jpg';
+            a.href = canvas.toDataURL('image/jpeg');
+        }else{
+            a.download = 'image.png';
+            a.href = canvas.toDataURL('image/png');
+        }
+        a.click();
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Remove Numbers</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2em;
+    }
+    input[type="text"] {
+      width: 300px;
+      padding: 0.5em;
+      margin-bottom: 1em;
+    }
+    button {
+      padding: 0.5em 1em;
+    }
+    #result {
+      display: block;
+      margin-top: 1em;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Remove Numbers from String</h1>
+
+<input type="text" id="inputField" placeholder="Enter your text here">
+<button onclick="removeNumbers()">Remove Numbers</button>
+<div id="result"></div>
+
+<script>
+  function removeNumbers() {
+    const input = document.getElementById('inputField').value;
+    const noNumbers = input.replace(/[0-9]/g, '');
+    document.getElementById('result').textContent = "Result: " + noNumbers;
+  }
+</script>
+
+</body>
+</html>

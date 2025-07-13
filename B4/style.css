@@ -1,0 +1,69 @@
+.particle-btn{
+    background: #ff0081;
+    color: white;
+}
+
+.particle-btn::before,
+.particle-btn::after{
+    content: "";
+    position: absolute;
+    left: -20%;
+    width: 140%;
+    height: 90%;
+    opacity: 0;
+    background-repeat: no-repeat;
+}
+
+.particle-btn::before{
+    top: -60%;
+    background-image:
+            radial-gradient(circle,#ff0081 20%,transparent 20%),
+            radial-gradient(circle,#ff0081 20%,transparent 20%),
+            radial-gradient(circle,#ff0081 20%,transparent 20%),
+            radial-gradient(circle,#ff0081 20%,transparent 20%),
+            radial-gradient(circle,#ff0081 20%,transparent 20%);
+    background-size: 30% 30%;
+}
+
+.particle-btn::after{
+    bottom: -60%;
+    background-image:
+            radial-gradient(circle,#ff0081 20%,transparent 20%),
+            radial-gradient(circle,#ff0081 20%,transparent 20%),
+            radial-gradient(circle,#ff0081 20%,transparent 20%),
+            radial-gradient(circle,#ff0081 20%,transparent 20%),
+            radial-gradient(circle,#ff0081 20%,transparent 20%);
+    background-size: 30% 30%;
+}
+
+.particle-btn:focus::before{
+    opacity: 1;
+    animation: be 0.75s ease forwards;
+}
+
+.particle-btn:focus::after{
+    opacity: 1;
+    animation: af 0.75s ease forwards;
+}
+/*active*/
+@keyframes be {
+    0% {
+        background-position: 5% 90%, 30% 90%, 60% 90%, 90% 90%, 10% 100%;
+    }
+    100% {
+        background-position: 0 70%, 30% 10%, 70% 30%, 100% 30%, 0 100%;
+        background-size: 5% 5%;
+        opacity: 0;
+    }
+}
+
+@keyframes af {
+    0% {
+        background-position: 10% 0, 40% 10%, 70% -10%, 90% -10%;
+    }
+    100% {
+        background-position: 0 70%, 45% 90%, 80% 70%, 100% 80%;
+        background-size: 5% 5%;
+        opacity: 0;
+    }
+}

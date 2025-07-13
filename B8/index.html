@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rotating Yellow Star</title>
+  <style>
+
+    .star {
+      /*width: 150px;*/
+      /*height: 150px;*/
+      /*background: linear-gradient(45deg, #ffd700, #ffed4e);*/
+      /*clip-path: polygon(50.0% 0.0%,61.8% 33.8%,97.6% 34.5%,69.0% 56.2%,79.4% 90.5%,50.0% 70.0%,20.6% 90.5%,31.0% 56.2%,2.4% 34.5%,38.2% 33.8%);*/
+      /*position: absolute;*/
+      /*left: 50%;*/
+      /*top: 50%;*/
+
+      width: 300px;
+      aspect-ratio: 1;
+      animation: rotate 3s linear infinite;
+      background: #F8CA00;
+      clip-path: polygon(50% 0,
+      calc(50%*(1 + sin(.4turn))) calc(50%*(1 - cos(.4turn))),
+      calc(50%*(1 - sin(.2turn))) calc(50%*(1 - cos(.2turn))),
+      calc(50%*(1 + sin(.2turn))) calc(50%*(1 - cos(.2turn))),
+      calc(50%*(1 - sin(.4turn))) calc(50%*(1 - cos(.4turn)))
+      );
+    }
+
+    @keyframes rotate {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="star"></div>
+
+<script>
+  let result = [];
+  let str = '';
+  const step = Math.PI / 5;
+  for (let i=0;i<10;i++){
+    const angle = -Math.PI/2 + i * step;
+    const r = (i % 2 === 0) ? 50 : 20;
+    const x = 50 + r * Math.cos(angle);
+    const y = 50 + r * Math.sin(angle);
+    str += `${x.toFixed(1)}% ${y.toFixed(1)}%,`;
+  }
+</script>
+</body>
+</html>

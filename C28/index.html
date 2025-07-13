@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../plugin/theme.css">
+    <style>
+        .grid{
+            display: grid;
+            grid-template-columns: repeat(16,1fr);
+            grid-template-rows: repeat(16,1fr);
+            width: 600px;
+            height: 600px;
+        }
+
+        .gird-div{
+            border: 1px solid #000000;
+        }
+
+        .color-grid{
+            display: grid;
+            width: 400px;
+            gap: 1rem;
+            grid-template-columns: repeat(8,1fr);
+            grid-template-rows: repeat(2,1fr);
+        }
+
+        .color-grid > div:first-child{
+            border: 4px solid #fddb00;
+
+        }
+        .color{
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 4px solid gray;
+        }
+
+    </style>
+    <title>Document</title>
+</head>
+<body class="d-flex flex-column p-3">
+<div class="grid"></div>
+<div class="my-3"></div>
+<div class="color-grid"></div>
+<script src="../plugin/vue.global.js"></script>
+<script>
+    const gridColors = document.querySelector('.color-grid');
+    const colors = ['#000000','#008787','#0000db','#433387',
+        '#870000','#878787','#87cafd','#a9a922',
+        '#ba8722','#ca1187','#fdbaba','#ec0000',
+        '#fddb00','#fdecba','#dbdbdb','#fdfdfd']
+
+    let color = 'black';
+
+    for (let i = 0; i < colors.length; i++) {
+        const div = document.createElement('div');
+        div.style.background = colors[i];
+        div.classList.add('color');
+        div.addEventListener('click',z => {
+            gridColors.querySelectorAll('div').forEach(z => z.style.border = '4px solid gray');
+            color = colors[i];
+            div.style.border = '4px solid #fddb00';
+        })
+        gridColors.appendChild(div);
+    }
+
+    const grid = document.querySelector('.grid');
+    for (let i = 0; i < 16; i++) {
+        for (let j = 0; j < 16; j++) {
+            const div = document.createElement('div');
+            div.classList.add('gird-div');
+            div.addEventListener('click',e => {
+                div.style.background = color;
+            })
+            grid.appendChild(div);
+        }
+    }
+</script>
+</body>
+</html>

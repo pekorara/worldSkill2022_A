@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <link rel="stylesheet" href="../plugin/theme.css">
+  <style>
+    *{
+      padding: 0;
+      margin: 0;
+    }
+
+    p{
+      margin : 0;
+    }
+  </style>
+</head>
+<body class="p-2">
+
+<div id="index" class="d-flex flex-column">
+  <div class="d-flex flex-row" style="height: 500px">
+    <div class="d-flex flex-column align-items-end justify-content-between">
+      <p>500</p>
+      <p>400</p>
+      <p>300</p>
+      <p>200</p>
+      <p>100</p>
+      <p>0</p>
+    </div>
+    <div style="height: 100%;width: 3px;background-color: black" class="mx-1"></div>
+    <div class="d-flex flex-row align-items-end gap-5">
+      <div v-for="data in list" :style="{height:`${data.value}%`,backgroundColor:data.background}" style="width: 50px;border: 1px black solid">
+      </div>
+    </div>
+  </div>
+
+  <div style="height: 3px;background-color: black;margin-left: 32px" :style="{width:w}" class="my-1"></div>
+  <div class="d-flex flex-row gap-5" style="margin-left: 32px">
+    <p v-for="data in list" style="width: 50px" class="text-break d-flex flex-column align-items-center justify-content-center">{{data.name}}</p>
+  </div>
+</div>
+
+<script src="../plugin/vue.global.js"></script>
+<script>
+  Vue.createApp({
+    data(){
+      return{
+        list : [],
+        w : '0px'
+      }
+    },
+    methods:{
+      init(){
+        fetch('random.php')
+                .then(z => z.json())
+                .then(z => {
+                  this.list = z;
+                  this.w = `${this.list.length * 50 + this.list.length * 16 * 3}px`;
+                  this.list = this.list.map(z => {
+                    const width = z.value / 5;
+                    return{
+                      name : z.name,
+                      value : width,
+                      background : `rgb(${Math.random() * 256},${Math.random() * 256},${Math.random() * 256})`
+                    }
+                  });
+                });
+      }
+    },
+    mounted(){
+      this.init();
+    }
+  }).mount('#index')
+</script>
+</body>
+</html>

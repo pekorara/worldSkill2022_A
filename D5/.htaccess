@@ -1,0 +1,3 @@
+RewriteEngine On
+RewriteRule ^media/(.*)$ index.php?path=$1
+# 如果請求的是 media 目錄下的 jpg 或 png 檔，交由 index.php 處理

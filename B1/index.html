@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        input {
+            position: absolute;
+            opacity: 0;
+        }
+
+        label {
+            background-color: white;
+            border: solid 1px black;
+            padding: 2rem;
+            color: black;
+        }
+
+        input:checked + label {
+            background-color: gold;
+        }
+
+        body {
+            counter-reset: sum;
+        }
+
+        #a:checked{
+            counter-increment: sum 10;
+        }
+
+        #b:checked{
+            counter-increment: sum 32;
+        }
+
+        #c:checked{
+            counter-increment: sum 64;
+        }
+
+        #d:checked{
+            counter-increment: sum -15;
+        }
+
+        p::before{
+            content: 'Sum ' counter(sum);
+        }
+
+    </style>
+</head>
+<body>
+
+<div style="display: flex;flex-direction: row;gap: 1rem" class="box">
+    <input type="checkbox" id="a">
+    <label for="a">10</label>
+
+    <input type="checkbox" id="b">
+    <label for="b">32</label>
+
+    <input type="checkbox" id="c">
+    <label for="c">64</label>
+
+    <input type="checkbox" id="d">
+    <label for="d">-15</label>
+</div>
+<p></p>
+
+</body>
+</html>

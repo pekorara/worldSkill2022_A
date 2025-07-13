@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task17</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="index" class="game-container">
+  <div v-if="gameData.winner" class="status">{{ gameData.winner }}</div>
+  <div class="board">
+    <div v-for="(cell, index) in gameData.board"
+         :key="index"
+         class="cell"
+         @click=" handleCellClick(index).catch(console.error)">
+      {{ cell }}
+    </div>
+  </div>
+  <button @click="resetGame">重置遊戲</button>
+</div>
+
+<script src="../plugin/vue.global.js"></script>
+<script src="index.js"></script>
+</body>
+</html>

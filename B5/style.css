@@ -1,0 +1,26 @@
+img{
+    object-fit: cover;
+    max-width: 100%;
+}
+
+.container{
+    position: relative;
+    transform-style: preserve-3d;
+    transform: rotateY(0);
+    transition: all 1s ease;
+    height: 800px;
+    width: 500px;
+}
+
+.side{
+    position: absolute;
+    backface-visibility: hidden;
+}
+
+.container:hover{
+    transform: rotateY(180deg);
+}
+
+.back{
+    transform: rotateY(180deg);
+}

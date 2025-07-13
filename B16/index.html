@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            font-family: Arial, sans-serif;
+        }
+
+        .a{
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .a1{
+            animation: a1 linear 10s infinite;
+        }
+        .a2{
+            animation: a2 linear 10s infinite;
+        }
+        .a3{
+            animation: a3 linear 10s infinite;
+        }
+        .a4{
+            animation: a4 linear 10s infinite;
+        }
+
+        @keyframes a1 {
+            from{
+                left: 0;
+            }
+            to{
+                left: -120%;
+            }
+        }
+
+        @keyframes a2 {
+            from{
+                left: 60%;
+            }
+            to{
+                left: -60%;
+            }
+        }
+
+        @keyframes a3 {
+            from{
+                left: 120%;
+            }
+            to{
+                left: 0;
+            }
+        }
+
+        @keyframes a4 {
+            from{
+                left: 180%;
+            }
+            to{
+                left: 60%;
+            }
+        }
+    </style>
+</head>
+<body style="background-color: black;overflow: hidden">
+
+<div style="background-color: #2c2c2c;height: 200px;width: 100%;position: absolute;top: 50%;transform: translateY(-50%)">
+    <h1 class="a a1" style="font-weight: bold;color: white;font-size: 8rem;margin: 0">WORLDSKILLS</h1>
+    <h1 class="a a2" style="font-weight: bold;color: white;font-size: 8rem;margin: 0">WORLDSKILLS</h1>
+    <h1 class="a a3" style="font-weight: bold;color: white;font-size: 8rem;margin: 0">WORLDSKILLS</h1>
+    <h1 class="a a4" style="font-weight: bold;color: white;font-size: 8rem;margin: 0">WORLDSKILLS</h1>
+</div>
+
+</body>
+</html>
