@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task06</title>
+  <style>
+    .highlight {
+      font-weight: bold;
+      padding: 2px 5px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Find Keyword in Text</h1>
+
+<p id="text">This is a WorldSkills Competition Paper D. In this paper, you are expected to design a poster to welcome visitors to your country.</p>
+
+<input type="text" id="searchInput" placeholder="Enter keyword to search">
+<button onclick="highlightText()">Search</button>
+
+<script>
+  // 用來儲存已高亮顯示過的單字，避免重複高亮
+  let highlightedWords = [];
+
+  function highlightText() {
+    // 取得輸入的關鍵字
+    const keyword = document.getElementById('searchInput').value.trim();
+
+    if (!keyword) return; // 如果沒有輸入關鍵字，什麼都不做
+
+    // 取得段落文字
+    const textElement = document.getElementById('text');
+    const textContent = textElement.textContent;
+
+    // 建立正則表達式，區分大小寫
+    const regex = new RegExp(`(${keyword})`, 'g');
+
+    // 檢查每個匹配的關鍵字
+    const highlightedText = textContent.replace(regex, (match) => {
+      // 如果這個單字之前已經被高亮過，直接返回原文字
+      if (highlightedWords.includes(match)) {
+        return match;
+      }
+
+      // 記錄已經高亮過的單字
+      highlightedWords.push(match);
+
+      // 隨機生成顏色
+      const randomColor = getRandomColor();
+
+      // 返回加上隨機顏色的高亮顯示文字
+      return `<span class="highlight" style="background-color: ${randomColor};">${match}</span>`;
+    });
+
+    // 更新文本內容為已高亮的版本
+    textElement.innerHTML = highlightedText;
+  }
+
+  // 生成隨機顏色
+  function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+</script>
+
+</body>
+</html>

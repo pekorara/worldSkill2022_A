@@ -54,5 +54,4 @@ $output = $word . ' days';
     <p>Output: <?= $output ?></p>
 
 </body>
-
 </html>

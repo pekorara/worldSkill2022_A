@@ -12,16 +12,16 @@ console.log(getType(123));
 //console: "bigint"
 console.log(getType(123n));
 
-//console: "string"
+// console: "string"
 console.log(getType("abc"));
 
-//console: "array"
+// //console: "array"
 console.log(getType([1, 2, 3, 4]));
 
-//console: "object"
+// console: "object"
 console.log(getType({a: 1, b: 2}));
 
-//console: "regexp"
+// console: "regexp"
 console.log(getType(/d/));
 
 //console: "null"

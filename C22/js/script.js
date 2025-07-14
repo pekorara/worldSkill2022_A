@@ -14,7 +14,7 @@ document.querySelectorAll('.card').forEach(z => {
      z.addEventListener('mouseup',e => {
         z.style.transform = 'rotate(0)';
     })
-})
+});
 
 $('.group-sortable').sortable({
     connectWith: '.group-sortable',

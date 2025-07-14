@@ -10,23 +10,21 @@
 
         .mouse{
             position: absolute;
-            left: 0;
-            right: 0;
-            opacity: 0;
+            opacity: 1;
             width: 0;
             height: 0;
             transform: translate(-50%,-50%);
-            background-color: #c3c3c3;
+            background-color: #000000;
             border-radius: 50%;
-            animation: go .2s ease;
+            animation: go .5s ease;
         }
 
         @keyframes go {
             to{
-                opacity: 1;
-                width: 100px;
-                height: 100px;
-                background-color: #c3c3c3;
+                opacity: 0;
+                width: 80px;
+                height: 80px;
+                background-color: #ffffff;
             }
         }
     </style>
